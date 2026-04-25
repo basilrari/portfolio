@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import FloatingAvatar from '@/components/FloatingAvatar';
 
 export const metadata: Metadata = {
   title: 'Basil Rari — AI/ML Engineer',
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="min-h-screen bg-slate-950 text-slate-50 antialiased">
         {children}
+        <FloatingAvatar />
       </body>
     </html>
   );
