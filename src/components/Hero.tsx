@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Avatar3D from './Avatar3D';
+import GuideAvatar from './GuideAvatar';
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex items-center relative overflow-hidden">
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 opacity-[0.03]"
@@ -22,15 +22,8 @@ export default function Hero() {
 
       <div className="max-w-6xl mx-auto px-6 py-20 w-full relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-          {/* Avatar */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex-shrink-0"
-          >
-            <Avatar3D />
-          </motion.div>
+          {/* Guide Avatar - replaces old Avatar3D */}
+          <GuideAvatar />
 
           {/* Text content */}
           <div className="text-center md:text-left">
