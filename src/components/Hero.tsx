@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Avatar from './Avatar';
+import Avatar3D from './Avatar3D';
 
 export default function Hero() {
   return (
@@ -29,7 +29,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="flex-shrink-0"
           >
-            <Avatar />
+            <Avatar3D />
           </motion.div>
 
           {/* Text content */}
