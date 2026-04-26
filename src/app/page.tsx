@@ -1,3 +1,7 @@
+import SplitLayout from '@/components/Layout/SplitLayout';
+import LeftPanel from '@/components/Layout/LeftPanel';
+import RightPanel from '@/components/Layout/RightPanel';
+import GuideAvatar from '@/components/GuideAvatar/GuideAvatar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Projects from '@/components/Projects';
@@ -7,13 +11,22 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Contact />
-      <Footer />
-    </main>
+    <SplitLayout
+      leftPanel={
+        <LeftPanel>
+          <GuideAvatar />
+        </LeftPanel>
+      }
+      rightPanel={
+        <RightPanel>
+          <Hero />
+          <About />
+          <Projects />
+          <Skills />
+          <Contact />
+          <Footer />
+        </RightPanel>
+      }
+    />
   );
 }

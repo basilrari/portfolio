@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 @import 'tailwindcss';
 
 /* ── Semantic Color Tokens ────────────────────────────────────── */
@@ -6,28 +6,28 @@
 /* Dark theme (default) */
 :root,
 :root[data-theme="dark"] {
-  --bg-primary: #0f172a;       /* slate-950 */
-  --bg-secondary: #1e293b;     /* slate-800 */
-  --bg-card: rgba(30, 41, 59, 0.6);
-  --bg-card-hover: rgba(30, 41, 59, 0.8);
-  --bg-elevated: rgba(15, 23, 42, 0.95);
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: rgba(17, 24, 39, 0.6);
+  --bg-card-hover: rgba(17, 24, 39, 0.8);
+  --bg-elevated: rgba(10, 14, 23, 0.95);
 
-  --text-primary: #f8fafc;     /* slate-50 */
-  --text-secondary: #94a3b8;   /* slate-400 */
-  --text-muted: #64748b;       /* slate-500 */
-  --text-accent: #34d399;      /* emerald-400 */
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --text-accent: #34d399;
 
-  --border-primary: #334155;   /* slate-700 */
-  --border-subtle: rgba(51, 65, 85, 0.5);
-  --border-accent: rgba(16, 185, 129, 0.3); /* emerald-500/30 */
+  --border-primary: #374151;
+  --border-subtle: rgba(75, 85, 99, 0.4);
+  --border-accent: rgba(16, 185, 129, 0.3);
 
-  --accent-primary: #059669;   /* emerald-600 */
-  --accent-hover: #10b981;     /* emerald-500 */
-  --accent-glow: rgba(16, 185, 129, 0.1);
-  --accent-glow-strong: rgba(16, 185, 129, 0.2);
+  --accent-primary: #059669;
+  --accent-hover: #10b981;
+  --accent-glow: rgba(16, 185, 129, 0.15);
+  --accent-glow-strong: rgba(16, 185, 129, 0.25);
 
-  --shadow-color: rgba(16, 185, 129, 0.1);
-  --shadow-color-strong: rgba(16, 185, 129, 0.2);
+  --shadow-color: rgba(16, 185, 129, 0.08);
+  --shadow-color-strong: rgba(16, 185, 129, 0.15);
 
   --grid-opacity: 0.03;
   --glow-emerald: rgba(16, 185, 129, 0.05);
@@ -36,25 +36,25 @@
 
 /* Light theme */
 :root[data-theme="light"] {
-  --bg-primary: #fafaf9;       /* stone-50 */
-  --bg-secondary: #f5f5f4;     /* stone-100 */
+  --bg-primary: #fafaf9;
+  --bg-secondary: #f5f5f4;
   --bg-card: rgba(255, 255, 255, 0.8);
   --bg-card-hover: rgba(255, 255, 255, 0.95);
   --bg-elevated: rgba(255, 255, 255, 0.98);
 
-  --text-primary: #1c1917;     /* stone-900 */
-  --text-secondary: #57534e;   /* stone-600 */
-  --text-muted: #78716c;       /* stone-500 */
-  --text-accent: #059669;      /* emerald-600 */
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #78716c;
+  --text-accent: #059669;
 
-  --border-primary: #e7e5e4;   /* stone-200 */
+  --border-primary: #e7e5e4;
   --border-subtle: rgba(231, 229, 228, 0.6);
-  --border-accent: rgba(5, 150, 105, 0.3); /* emerald-600/30 */
+  --border-accent: rgba(5, 150, 105, 0.3);
 
-  --accent-primary: #059669;   /* emerald-600 */
-  --accent-hover: #047857;     /* emerald-700 */
-  --accent-glow: rgba(5, 150, 105, 0.08);
-  --accent-glow-strong: rgba(5, 150, 105, 0.15);
+  --accent-primary: #059669;
+  --accent-hover: #047857;
+  --accent-glow: rgba(5, 150, 105, 0.1);
+  --accent-glow-strong: rgba(5, 150, 105, 0.2);
 
   --shadow-color: rgba(0, 0, 0, 0.06);
   --shadow-color-strong: rgba(0, 0, 0, 0.1);
@@ -85,6 +85,11 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+  }
+
   /* Respect reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -102,11 +107,16 @@
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  .font-display {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
 }
 
 /* ── Utility classes mapping to semantic tokens ──────────────── */
 
 .bg-page { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
 .bg-card { background-color: var(--bg-card); }
 .bg-card-hover { background-color: var(--bg-card-hover); }
 .bg-elevated { background-color: var(--bg-elevated); }
@@ -123,3 +133,22 @@
 .accent-bg { background-color: var(--accent-primary); }
 .accent-bg-hover:hover { background-color: var(--accent-hover); }
 .accent-border { border-color: var(--border-accent); }
+
+/* ── Scrollbar Styling ────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-primary);
+}
