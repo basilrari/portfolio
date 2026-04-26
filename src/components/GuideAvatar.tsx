@@ -60,7 +60,17 @@ function AvatarScene({ size, mousePos }: { size: number; mousePos: { x: number; 
 }
 
 // --- Speech Bubble ---
-function SpeechBubble({ message, visible, position }: { message: string; visible: boolean; position: 'top' | 'bottom' }) {
+function SpeechBubble({
+  message,
+  visible,
+  position,
+  align = 'left',
+}: {
+  message: string;
+  visible: boolean;
+  position: 'top' | 'bottom';
+  align?: 'left' | 'right';
+}) {
   return (
     <AnimatePresence>
       {visible && (
@@ -69,11 +79,9 @@ function SpeechBubble({ message, visible, position }: { message: string; visible
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: position === 'top' ? 10 : -10, scale: 0.8 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className={`
-            absolute ${position === 'top' ? '-top-16' : '-bottom-16'} -left-2
-            max-w-[200px] px-3 py-2 rounded-xl text-xs shadow-lg
-            backdrop-blur-sm pointer-events-none
-          `}
+          className={`absolute ${
+            position === 'top' ? '-top-16' : '-bottom-16'
+          } ${align === 'left' ? '-left-2' : 'right-0'} max-w-[200px] px-3 py-2 rounded-xl text-xs shadow-lg backdrop-blur-sm pointer-events-none`}
           style={{
             backgroundColor: 'var(--bg-elevated)',
             borderColor: 'var(--border-accent)',
@@ -86,8 +94,8 @@ function SpeechBubble({ message, visible, position }: { message: string; visible
             className={`
               absolute w-3 h-3
               ${position === 'top'
-                ? 'bottom-[-6px] left-4 border-b border-l rotate-45'
-                : 'top-[-6px] left-4 border-t border-r rotate-45'
+                ? `bottom-[-6px] ${align === 'left' ? 'left-4' : 'right-4'} border-b border-l rotate-45`
+                : `top-[-6px] ${align === 'left' ? 'left-4' : 'right-4'} border-t border-r rotate-45`
               }
             `}
             style={{
@@ -108,7 +116,6 @@ export default function GuideAvatar() {
   const [bubbleVisible, setBubbleVisible] = useState(true);
   const [isHero, setIsHero] = useState(true);
   const [avatarSize, setAvatarSize] = useState(120); // pixels
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const bubbleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Track mouse position
@@ -140,7 +147,6 @@ export default function GuideAvatar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
 
       // Determine which section is in view
@@ -155,8 +161,10 @@ export default function GuideAvatar() {
         }
       });
 
-      // Check if we're in hero section
-      const inHero = scrollY < windowHeight * 0.5;
+      // Keep avatar in hero mode while a meaningful part of hero is visible.
+      const heroEl = document.querySelector('#hero');
+      const heroRect = heroEl?.getBoundingClientRect();
+      const inHero = heroRect ? heroRect.bottom > windowHeight * 0.55 : true;
       setIsHero(inHero);
 
       // Adjust avatar size based on section
@@ -173,28 +181,9 @@ export default function GuideAvatar() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentSection, showBubbleForSection]);
-
-  // Calculate avatar position based on scroll
-  useEffect(() => {
-    const updatePosition = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      if (isHero) {
-        // In hero, position next to text
-        setPosition({ x: 0, y: 0 });
-      } else {
-        // Floating in bottom-right when scrolled
-        setPosition({ x: window.innerWidth - 100, y: windowHeight - 100 });
-      }
-    };
-
-    updatePosition();
-    window.addEventListener('resize', updatePosition);
-    return () => window.removeEventListener('resize', updatePosition);
-  }, [isHero]);
 
   const currentMessage = sections[currentSection]?.message || '';
 
@@ -225,6 +214,7 @@ export default function GuideAvatar() {
             message={currentMessage}
             visible={bubbleVisible}
             position="top"
+            align="left"
           />
         </motion.div>
       )}
@@ -236,11 +226,7 @@ export default function GuideAvatar() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="fixed z-50 cursor-pointer"
-          style={{
-            left: position.x,
-            top: position.y,
-          }}
+          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 cursor-pointer"
         >
           <div
             className="rounded-full overflow-hidden border-2 backdrop-blur-sm shadow-lg"
@@ -260,6 +246,7 @@ export default function GuideAvatar() {
             message={currentMessage}
             visible={bubbleVisible}
             position="top"
+            align="right"
           />
         </motion.div>
       )}
