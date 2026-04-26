@@ -30,26 +30,56 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="font-mono text-emerald-400 text-sm tracking-wider mb-3">03 / About</p>
+          <p
+            className="font-mono text-sm tracking-wider mb-3"
+            style={{ color: 'var(--text-accent)' }}
+          >
+            03 / About
+          </p>
           <h2 className="text-3xl md:text-4xl font-bold mb-8">
             Researcher. Builder. Pilot.
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12 mb-12">
             <div className="space-y-4">
-              <p className="text-slate-400 text-lg leading-relaxed">
-                Graduate student at <span className="text-slate-200 font-medium">National Chung Cheng University, Taiwan</span>,
-                building AI systems that operate in the physical world.
+              <p
+                className="text-lg leading-relaxed"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Graduate student at{' '}
+                <span className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                  National Chung Cheng University, Taiwan
+                </span>
+                , building AI systems that operate in the physical world.
               </p>
-              <p className="text-slate-400 text-lg leading-relaxed">
-                My work spans from <span className="text-emerald-400">multi-drone search &amp; rescue</span> with
-                NVIDIA Jetson-based Edge AI, to <span className="text-emerald-400">LLM-powered command interfaces</span>{' '}
-                for autonomous coordination, to <span className="text-emerald-400">vision-language models</span> for
-                urban surveillance and climate action.
+              <p
+                className="text-lg leading-relaxed"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                My work spans from{' '}
+                <span style={{ color: 'var(--text-accent)' }}>
+                  multi-drone search &amp; rescue
+                </span>{' '}
+                with NVIDIA Jetson-based Edge AI, to{' '}
+                <span style={{ color: 'var(--text-accent)' }}>
+                  LLM-powered command interfaces
+                </span>{' '}
+                for autonomous coordination, to{' '}
+                <span style={{ color: 'var(--text-accent)' }}>
+                  vision-language models
+                </span>{' '}
+                for urban surveillance and climate action.
               </p>
-              <p className="text-slate-400 text-lg leading-relaxed">
+              <p
+                className="text-lg leading-relaxed"
+                style={{ color: 'var(--text-secondary)' }}
+              >
                 I believe the most impactful AI lives at the intersection of software and hardware —
-                systems that don't just process data, but <span className="text-slate-200 font-medium">perceive, decide, and act</span>.
+                systems that don&apos;t just process data, but{' '}
+                <span className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                  perceive, decide, and act
+                </span>
+                .
               </p>
             </div>
 
@@ -61,15 +91,28 @@ export default function About() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.15, duration: 0.5 }}
-                  className="text-center p-4 rounded-xl bg-slate-900/60 border border-slate-800/50"
+                  className="text-center p-4 rounded-xl border"
+                  style={{
+                    backgroundColor: 'var(--bg-card)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
                 >
-                  <div className="text-2xl md:text-3xl font-bold text-emerald-400 mb-1">
+                  <div
+                    className="text-2xl md:text-3xl font-bold mb-1"
+                    style={{ color: 'var(--text-accent)' }}
+                  >
                     {item.number}
                   </div>
-                  <div className="text-sm font-medium text-slate-300 mb-1">
+                  <div
+                    className="text-sm font-medium mb-1"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
                     {item.label}
                   </div>
-                  <div className="text-xs text-slate-500">
+                  <div
+                    className="text-xs"
+                    style={{ color: 'var(--text-muted)' }}
+                  >
                     {item.description}
                   </div>
                 </motion.div>

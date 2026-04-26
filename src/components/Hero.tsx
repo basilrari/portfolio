@@ -8,17 +8,24 @@ export default function Hero() {
     <section id="hero" className="min-h-screen flex items-center relative overflow-hidden">
       {/* Subtle grid background */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0"
         style={{
+          opacity: 'var(--grid-opacity)',
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            'linear-gradient(rgba(128,128,128,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(128,128,128,0.15) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
       />
 
       {/* Ambient glow spots */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
+      <div
+        className="absolute top-1/4 -left-32 w-96 h-96 rounded-full blur-3xl"
+        style={{ backgroundColor: 'var(--glow-emerald)' }}
+      />
+      <div
+        className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full blur-3xl"
+        style={{ backgroundColor: 'var(--glow-violet)' }}
+      />
 
       <div className="max-w-6xl mx-auto px-6 py-20 w-full relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
@@ -32,7 +39,10 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <p className="font-mono text-emerald-400 text-sm tracking-wider mb-3">
+              <p
+                className="font-mono text-sm tracking-wider mb-3"
+                style={{ color: 'var(--text-accent)' }}
+              >
                 &lt;AI / ML Engineer /&gt;
               </p>
 
@@ -40,11 +50,17 @@ export default function Hero() {
                 Basil Rari
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-400 mb-6">
+              <p
+                className="text-xl md:text-2xl mb-6"
+                style={{ color: 'var(--text-secondary)' }}
+              >
                 Building autonomous systems that see, think, and fly.
               </p>
 
-              <p className="text-slate-500 max-w-xl mx-auto md:mx-0 mb-8 leading-relaxed">
+              <p
+                className="max-w-xl mx-auto md:mx-0 mb-8 leading-relaxed"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 Graduate researcher at National Chung Cheng University, Taiwan.
                 Specializing in multi-drone coordination, Edge AI on NVIDIA Jetson,
                 and LLM-powered autonomous systems for search &amp; rescue.
@@ -59,7 +75,17 @@ export default function Hero() {
             >
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 rounded-lg font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                style={{
+                  backgroundColor: 'var(--accent-primary)',
+                  color: '#ffffff',
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.backgroundColor = 'var(--accent-hover)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.backgroundColor = 'var(--accent-primary)';
+                }}
               >
                 <span>View Projects</span>
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -68,7 +94,19 @@ export default function Hero() {
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-lg font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                style={{
+                  borderColor: 'var(--border-primary)',
+                  color: 'var(--text-primary)',
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.borderColor = 'var(--text-secondary)';
+                  (e.target as HTMLElement).style.backgroundColor = 'var(--bg-card)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.borderColor = 'var(--border-primary)';
+                  (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                }}
               >
                 <span>Get in Touch</span>
               </a>
@@ -83,7 +121,14 @@ export default function Hero() {
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <svg className="w-5 h-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg
+          className="w-5 h-5"
+          style={{ color: 'var(--text-muted)' }}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </motion.div>

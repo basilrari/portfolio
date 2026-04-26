@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import ThemeToggle from '@/components/ThemeToggle';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,7 +22,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#020617',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0f172a' },
+    { media: '(prefers-color-scheme: light)', color: '#fafaf9' },
+  ],
   width: 'device-width',
   initialScale: 1,
 };
@@ -31,9 +36,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen bg-slate-950 text-slate-50 antialiased">
-        {children}
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className="min-h-screen antialiased">
+        <ThemeProvider>
+          {children}
+          <div className="fixed top-4 right-4 z-50">
+            <ThemeToggle />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

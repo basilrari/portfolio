@@ -71,20 +71,29 @@ function SpeechBubble({ message, visible, position }: { message: string; visible
           transition={{ duration: 0.3, ease: 'easeOut' }}
           className={`
             absolute ${position === 'top' ? '-top-16' : '-bottom-16'} -left-2
-            max-w-[200px] px-3 py-2 bg-slate-800/95 border border-emerald-500/30
-            rounded-xl text-xs text-slate-200 shadow-lg shadow-emerald-500/10
+            max-w-[200px] px-3 py-2 rounded-xl text-xs shadow-lg
             backdrop-blur-sm pointer-events-none
           `}
+          style={{
+            backgroundColor: 'var(--bg-elevated)',
+            borderColor: 'var(--border-accent)',
+            color: 'var(--text-secondary)',
+            boxShadow: `0 4px 12px var(--shadow-color)`,
+          }}
         >
           {message}
           <div
             className={`
-              absolute w-3 h-3 bg-slate-800/95 border-emerald-500/30
+              absolute w-3 h-3
               ${position === 'top'
                 ? 'bottom-[-6px] left-4 border-b border-l rotate-45'
                 : 'top-[-6px] left-4 border-t border-r rotate-45'
               }
             `}
+            style={{
+              backgroundColor: 'var(--bg-elevated)',
+              borderColor: 'var(--border-accent)',
+            }}
           />
         </motion.div>
       )}
@@ -200,8 +209,13 @@ export default function GuideAvatar() {
           className="relative flex-shrink-0"
         >
           <div
-            className="rounded-full overflow-hidden border-2 border-emerald-500/20 bg-slate-900/30 backdrop-blur-sm"
-            style={{ width: avatarSize, height: avatarSize }}
+            className="rounded-full overflow-hidden border-2 backdrop-blur-sm"
+            style={{
+              width: avatarSize,
+              height: avatarSize,
+              borderColor: 'var(--border-accent)',
+              backgroundColor: 'var(--bg-card)',
+            }}
           >
             <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
               <AvatarScene size={0.8} mousePos={mousePos} />
@@ -229,8 +243,14 @@ export default function GuideAvatar() {
           }}
         >
           <div
-            className="rounded-full overflow-hidden border-2 border-emerald-500/30 bg-slate-900/50 backdrop-blur-sm shadow-lg shadow-emerald-500/20"
-            style={{ width: avatarSize, height: avatarSize }}
+            className="rounded-full overflow-hidden border-2 backdrop-blur-sm shadow-lg"
+            style={{
+              width: avatarSize,
+              height: avatarSize,
+              borderColor: 'var(--border-accent)',
+              backgroundColor: 'var(--bg-card)',
+              boxShadow: `0 8px 24px var(--shadow-color-strong)`,
+            }}
           >
             <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
               <AvatarScene size={0.6} mousePos={mousePos} />
