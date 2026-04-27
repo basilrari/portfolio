@@ -45,7 +45,6 @@ export default function GuideAvatar() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const { currentMessage, bubbleVisible } = useSectionTracker();
 
-  // Track mouse for avatar tilt
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({
@@ -60,47 +59,201 @@ export default function GuideAvatar() {
   return (
     <div className="relative flex-shrink-0">
       <motion.div
-        className="rounded-full overflow-hidden border-2 backdrop-blur-sm flex items-center justify-center"
+        className="rounded-full overflow-hidden border-2 backdrop-blur-sm"
         style={{
           width: 120,
           height: 120,
           borderColor: 'var(--border-accent)',
-          backgroundColor: 'var(--bg-secondary)',
+          backgroundColor: '#0f172a',
+          perspective: '600px',
         }}
         animate={{
-          rotateX: mousePos.y * -5,
-          rotateY: mousePos.x * 5,
+          rotateX: mousePos.y * -8,
+          rotateY: mousePos.x * 8,
         }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        {/* Professional illustrated avatar */}
-        <svg viewBox="0 0 120 120" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{stopColor: 'var(--text-accent)', stopOpacity: '0.3'}} />
-              <stop offset="100%" style={{stopColor: 'var(--text-accent)', stopOpacity: '0.1'}} />
-            </linearGradient>
-          </defs>
-          {/* Background */}
-          <rect width="120" height="120" fill="url(#avatarGrad)" />
-          {/* Head - more realistic proportions */}
-          <ellipse cx="60" cy="40" rx="16" ry="20" fill="var(--text-secondary)" opacity="0.7" />
+        {/* 3D Human Avatar using CSS */}
+        <div
+          className="w-full h-full relative"
+          style={{
+            transformStyle: 'preserve-3d',
+            transform: 'translateZ(20px)',
+          }}
+        >
+          {/* Head */}
+          <div
+            className="absolute rounded-full"
+            style={{
+              width: 40,
+              height: 44,
+              left: '50%',
+              top: '18%',
+              transform: 'translateX(-50%) translateZ(10px)',
+              background: 'radial-gradient(circle at 40% 35%, #e8c9a0, #c49a6c)',
+              boxShadow: 'inset -3px -3px 6px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.3)',
+            }}
+          >
+            {/* Eyes */}
+            <div
+              className="absolute rounded-full"
+              style={{ width: 4, height: 4, left: '28%', top: '42%', background: '#1a1a1a' }}
+            />
+            <div
+              className="absolute rounded-full"
+              style={{ width: 4, height: 4, left: '62%', top: '42%', background: '#1a1a1a' }}
+            />
+            {/* Smile */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 12,
+                height: 6,
+                left: '50%',
+                top: '60%',
+                transform: 'translateX(-50%)',
+                border: '2px solid #1a1a1a',
+                borderTopWidth: 0,
+                borderBottomWidth: 2,
+              }}
+            />
+          </div>
+
           {/* Hair */}
-          <path d="M44 32 Q44 20 60 18 Q76 20 76 32 Q76 26 60 24 Q44 26 44 32" fill="var(--text-primary)" opacity="0.5" />
-          {/* Eyes */}
-          <circle cx="54" cy="38" r="2" fill="var(--bg-secondary)" />
-          <circle cx="66" cy="38" r="2" fill="var(--bg-secondary)" />
-          {/* Nose */}
-          <path d="M60 38 L58 44 L62 44 Z" fill="var(--text-primary)" opacity="0.3" />
-          {/* Mouth */}
-          <path d="M55 48 Q60 51 65 48" stroke="var(--bg-secondary)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          <div
+            className="absolute rounded-t-full"
+            style={{
+              width: 42,
+              height: 22,
+              left: '50%',
+              top: '14%',
+              transform: 'translateX(-50%) translateZ(11px)',
+              background: '#2d2d2d',
+            }}
+          />
+
           {/* Neck */}
-          <rect x="56" y="58" width="8" height="8" fill="var(--text-secondary)" opacity="0.6" />
-          {/* Shoulders / Body */}
-          <path d="M30 100 Q30 75 60 72 Q90 75 90 100" fill="var(--text-primary)" opacity="0.4" />
-          {/* Collar */}
-          <path d="M50 75 L60 82 L70 75" stroke="var(--text-accent)" strokeWidth="1.5" fill="none" opacity="0.6" />
-        </svg>
+          <div
+            className="absolute"
+            style={{
+              width: 14,
+              height: 10,
+              left: '50%',
+              top: '52%',
+              transform: 'translateX(-50%) translateZ(5px)',
+              background: '#c49a6c',
+              boxShadow: 'inset -2px -2px 4px rgba(0,0,0,0.15)',
+            }}
+          />
+
+          {/* Torso */}
+          <div
+            className="absolute rounded-lg"
+            style={{
+              width: 52,
+              height: 42,
+              left: '50%',
+              top: '58%',
+              transform: 'translateX(-50%) translateZ(8px)',
+              background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+              boxShadow: 'inset -4px -4px 8px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.3)',
+            }}
+          >
+            {/* Collar */}
+            <div
+              className="absolute"
+              style={{
+                width: 20,
+                height: 4,
+                left: '50%',
+                top: '0%',
+                transform: 'translateX(-50%)',
+                background: '#ffffff',
+                borderRadius: '0 0 4px 4px',
+              }}
+            />
+          </div>
+
+          {/* Left Arm */}
+          <div
+            className="absolute rounded-lg"
+            style={{
+              width: 14,
+              height: 36,
+              left: '8%',
+              top: '58%',
+              transform: 'translateZ(6px) rotate(8deg)',
+              background: 'linear-gradient(180deg, #3b82f6, #2563eb)',
+              boxShadow: 'inset -2px -2px 4px rgba(0,0,0,0.2)',
+            }}
+          />
+          {/* Left Hand */}
+          <div
+            className="absolute rounded-full"
+            style={{
+              width: 10,
+              height: 10,
+              left: '10%',
+              top: '86%',
+              transform: 'translateZ(7px)',
+              background: '#c49a6c',
+            }}
+          />
+
+          {/* Right Arm */}
+          <div
+            className="absolute rounded-lg"
+            style={{
+              width: 14,
+              height: 36,
+              right: '8%',
+              top: '58%',
+              transform: 'translateZ(6px) rotate(-8deg)',
+              background: 'linear-gradient(180deg, #3b82f6, #2563eb)',
+              boxShadow: 'inset -2px -2px 4px rgba(0,0,0,0.2)',
+            }}
+          />
+          {/* Right Hand */}
+          <div
+            className="absolute rounded-full"
+            style={{
+              width: 10,
+              height: 10,
+              right: '10%',
+              top: '86%',
+              transform: 'translateZ(7px)',
+              background: '#c49a6c',
+            }}
+          />
+
+          {/* Left Leg */}
+          <div
+            className="absolute rounded-lg"
+            style={{
+              width: 16,
+              height: 28,
+              left: '28%',
+              top: '92%',
+              transform: 'translateZ(6px)',
+              background: 'linear-gradient(180deg, #1e3a5f, #162d4a)',
+              boxShadow: 'inset -2px -2px 4px rgba(0,0,0,0.2)',
+            }}
+          />
+
+          {/* Right Leg */}
+          <div
+            className="absolute rounded-lg"
+            style={{
+              width: 16,
+              height: 28,
+              right: '28%',
+              top: '92%',
+              transform: 'translateZ(6px)',
+              background: 'linear-gradient(180deg, #1e3a5f, #162d4a)',
+              boxShadow: 'inset -2px -2px 4px rgba(0,0,0,0.2)',
+            }}
+          />
+        </div>
       </motion.div>
       <SpeechBubble message={currentMessage} visible={bubbleVisible} />
     </div>
