@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSectionTracker } from './useSectionTracker';
 
@@ -61,12 +60,12 @@ export default function GuideAvatar() {
   return (
     <div className="relative flex-shrink-0">
       <motion.div
-        className="rounded-full overflow-hidden border-2 backdrop-blur-sm"
+        className="rounded-full overflow-hidden border-2 backdrop-blur-sm flex items-center justify-center"
         style={{
           width: 120,
           height: 120,
           borderColor: 'var(--border-accent)',
-          backgroundColor: 'var(--bg-card)',
+          backgroundColor: 'var(--bg-secondary)',
         }}
         animate={{
           rotateX: mousePos.y * -5,
@@ -74,14 +73,34 @@ export default function GuideAvatar() {
         }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        <Image
-          src="/avatar.jpg"
-          alt="Basil Rari"
-          width={120}
-          height={120}
-          className="rounded-full object-cover"
-          priority
-        />
+        {/* Professional illustrated avatar */}
+        <svg viewBox="0 0 120 120" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{stopColor: 'var(--text-accent)', stopOpacity: '0.3'}} />
+              <stop offset="100%" style={{stopColor: 'var(--text-accent)', stopOpacity: '0.1'}} />
+            </linearGradient>
+          </defs>
+          {/* Background */}
+          <rect width="120" height="120" fill="url(#avatarGrad)" />
+          {/* Head - more realistic proportions */}
+          <ellipse cx="60" cy="40" rx="16" ry="20" fill="var(--text-secondary)" opacity="0.7" />
+          {/* Hair */}
+          <path d="M44 32 Q44 20 60 18 Q76 20 76 32 Q76 26 60 24 Q44 26 44 32" fill="var(--text-primary)" opacity="0.5" />
+          {/* Eyes */}
+          <circle cx="54" cy="38" r="2" fill="var(--bg-secondary)" />
+          <circle cx="66" cy="38" r="2" fill="var(--bg-secondary)" />
+          {/* Nose */}
+          <path d="M60 38 L58 44 L62 44 Z" fill="var(--text-primary)" opacity="0.3" />
+          {/* Mouth */}
+          <path d="M55 48 Q60 51 65 48" stroke="var(--bg-secondary)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          {/* Neck */}
+          <rect x="56" y="58" width="8" height="8" fill="var(--text-secondary)" opacity="0.6" />
+          {/* Shoulders / Body */}
+          <path d="M30 100 Q30 75 60 72 Q90 75 90 100" fill="var(--text-primary)" opacity="0.4" />
+          {/* Collar */}
+          <path d="M50 75 L60 82 L70 75" stroke="var(--text-accent)" strokeWidth="1.5" fill="none" opacity="0.6" />
+        </svg>
       </motion.div>
       <SpeechBubble message={currentMessage} visible={bubbleVisible} />
     </div>
