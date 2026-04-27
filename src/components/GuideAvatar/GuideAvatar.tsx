@@ -1,48 +1,9 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import * as THREE from 'three';
 import { useSectionTracker } from './useSectionTracker';
-
-// --- 3D Avatar Model ---
-function AvatarModel({ mousePos }: { mousePos: { x: number; y: number } }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF('/avatar.glb');
-
-  useFrame((state) => {
-    if (!groupRef.current) return;
-
-    // Idle breathing
-    groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.02;
-
-    // Smooth rotation toward cursor
-    const targetRotY = mousePos.x * 0.5;
-    const targetRotX = -mousePos.y * 0.2;
-    groupRef.current.rotation.y += (targetRotY - groupRef.current.rotation.y) * 0.05;
-    groupRef.current.rotation.x += (targetRotX - groupRef.current.rotation.x) * 0.05;
-  });
-
-  return (
-    <group ref={groupRef} scale={0.8}>
-      <primitive object={scene} />
-    </group>
-  );
-}
-
-// --- 3D Scene ---
-function AvatarScene({ mousePos }: { mousePos: { x: number; y: number } }) {
-  return (
-    <>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
-      <pointLight position={[-5, -5, -5]} color="#00bb7f" intensity={0.3} />
-      <AvatarModel mousePos={mousePos} />
-    </>
-  );
-}
 
 // --- Speech Bubble ---
 function SpeechBubble({ message, visible }: { message: string; visible: boolean }) {
@@ -85,7 +46,7 @@ export default function GuideAvatar() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const { currentMessage, bubbleVisible } = useSectionTracker();
 
-  // Track mouse for avatar rotation
+  // Track mouse for avatar tilt
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({
@@ -99,7 +60,7 @@ export default function GuideAvatar() {
 
   return (
     <div className="relative flex-shrink-0">
-      <div
+      <motion.div
         className="rounded-full overflow-hidden border-2 backdrop-blur-sm"
         style={{
           width: 120,
@@ -107,11 +68,21 @@ export default function GuideAvatar() {
           borderColor: 'var(--border-accent)',
           backgroundColor: 'var(--bg-card)',
         }}
+        animate={{
+          rotateX: mousePos.y * -5,
+          rotateY: mousePos.x * 5,
+        }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
-          <AvatarScene mousePos={mousePos} />
-        </Canvas>
-      </div>
+        <Image
+          src="/avatar.jpg"
+          alt="Basil Rari"
+          width={120}
+          height={120}
+          className="rounded-full object-cover"
+          priority
+        />
+      </motion.div>
       <SpeechBubble message={currentMessage} visible={bubbleVisible} />
     </div>
   );
