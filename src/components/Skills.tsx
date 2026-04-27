@@ -4,40 +4,95 @@ import { motion } from 'framer-motion';
 import SectionHeader from '@/components/Shared/SectionHeader';
 import AnimatedSection from '@/components/Shared/AnimatedSection';
 
-const skills = [
+const skillCategories = [
   {
-    category: 'AI / ML',
-    items: ['LLMs', 'VLMs', 'CNNs', 'Transformers', 'OpenCV', 'PyTorch', 'TensorFlow', 'YOLO', 'DensePose'],
+    category: 'AI',
+    items: ['LLMs', 'Agents', 'RAG', 'Prompting', 'Embeddings'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364 6.364l-2.121-2.121M8.757 8.757 6.636 6.636m11.728 0-2.121 2.121M8.757 15.243l-2.121 2.121M12 16.5A4.5 4.5 0 1012 7.5a4.5 4.5 0 000 9z"
+        />
+      </svg>
+    ),
+  },
+  {
+    category: 'ML',
+    items: ['PyTorch', 'TensorFlow', 'Transformers', 'CNNs', 'OpenCV'],
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M4.5 19.5h15m-12-3.75v-7.5m4.5 7.5v-4.5m4.5 4.5V6.75m-9.75 0h9.75a1.5 1.5 0 011.5 1.5v9.75a1.5 1.5 0 01-1.5 1.5H6.75a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5z"
+        />
       </svg>
     ),
   },
   {
     category: 'Languages',
-    items: ['Python', 'Go', 'Rust', 'JavaScript', 'TypeScript', 'Solidity', 'SQL'],
+    items: ['Python', 'Go', 'Rust', 'TypeScript', 'JavaScript', 'SQL'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+        />
       </svg>
     ),
   },
   {
-    category: 'Web & Backend',
-    items: ['Next.js', 'React', 'TailwindCSS', 'Express.js', 'REST APIs', 'PostgreSQL', 'MongoDB'],
+    category: 'Web',
+    items: ['Next.js', 'React', 'TailwindCSS', 'HTML', 'CSS'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582"
+        />
       </svg>
     ),
   },
   {
-    category: 'Systems & Tools',
-    items: ['NVIDIA Jetson', 'Docker', 'AWS EC2', 'Git', 'Linux', 'Smart Contracts'],
+    category: 'Backend',
+    items: ['Node.js', 'Express.js', 'REST APIs', 'PostgreSQL', 'MongoDB'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1h12.76m-2.82 8.82l5.1-5.1m0 0l-5.1-5.1m5.1 5.1H11.42" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6.75 4.5h10.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25H6.75a2.25 2.25 0 01-2.25-2.25V6.75A2.25 2.25 0 016.75 4.5zm0 5.25h10.5m-10.5 4.5h6"
+        />
+      </svg>
+    ),
+  },
+  {
+    category: 'Systems',
+    items: ['Linux', 'Docker', 'AWS EC2', 'NVIDIA Jetson', 'Networking'],
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.75 8.25h16.5M3.75 15.75h16.5M7.5 5.25v13.5m9-13.5v13.5"
+        />
+      </svg>
+    ),
+  },
+  {
+    category: 'Tools',
+    items: ['Git', 'GitHub', 'VS Code', 'Postman', 'Figma'],
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1h12.76m-2.82 8.82l5.1-5.1m0 0l-5.1-5.1m5.1 5.1H11.42"
+        />
       </svg>
     ),
   },
@@ -49,43 +104,48 @@ export default function Skills() {
       <AnimatedSection>
         <SectionHeader label="02 / Arsenal" title="Technical Skills" />
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          {skills.map((skill, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3.5">
+          {skillCategories.map((skill, index) => (
             <motion.div
               key={skill.category}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{
+                scale: 1.015,
+                y: -2,
+                borderColor: 'var(--border-accent)',
+                boxShadow:
+                  '0 0 0 1px color-mix(in srgb, var(--border-accent) 40%, transparent), 0 14px 28px -18px var(--accent-glow-strong)',
+              }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.4 }}
-              className="rounded-xl border p-5 transition-all duration-300"
+              transition={{ delay: 0.08 + index * 0.06, duration: 0.38, ease: 'easeOut' }}
+              className="theme-transition micro-card rounded-xl border p-4"
               style={{
-                backgroundColor: 'var(--bg-card)',
-                borderColor: 'var(--border-subtle)',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-accent)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-subtle)';
+                ['--skill-card-bg' as string]: 'var(--bg-card)',
+                ['--skill-card-border' as string]: 'var(--border-subtle)',
+                ['--skill-pill-bg' as string]: 'var(--bg-secondary)',
+                ['--skill-pill-text' as string]: 'var(--text-secondary)',
+                backgroundColor: 'var(--skill-card-bg)',
+                borderColor: 'var(--skill-card-border)',
               }}
             >
-              <div className="flex items-center gap-2 mb-3" style={{ color: 'var(--text-accent)' }}>
+              <div className="flex items-center gap-2 mb-2.5" style={{ color: 'var(--text-accent)' }}>
                 {skill.icon}
                 <h3
-                  className="text-xs font-semibold uppercase tracking-wider"
+                  className="text-[11px] font-semibold uppercase tracking-[0.12em]"
                   style={{ color: 'var(--text-accent)' }}
                 >
                   {skill.category}
                 </h3>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {skill.items.map((item) => (
                   <span
                     key={item}
-                    className="px-2.5 py-1 rounded font-mono text-xs"
+                    className="px-2 py-1 rounded-md font-mono text-[11px] leading-none"
                     style={{
-                      backgroundColor: 'var(--bg-secondary)',
-                      color: 'var(--text-secondary)',
+                      backgroundColor: 'var(--skill-pill-bg)',
+                      color: 'var(--skill-pill-text)',
                     }}
                   >
                     {item}

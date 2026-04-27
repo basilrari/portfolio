@@ -9,20 +9,15 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      className="relative w-10 h-10 rounded-lg border border-subtle flex items-center justify-center transition-all duration-200 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+      className="theme-transition micro-button relative flex h-10 w-10 items-center justify-center rounded-lg border border-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
       style={{
         borderColor: 'var(--border-subtle)',
-      }}
-      onMouseEnter={(e) => {
-        (e.target as HTMLElement).style.borderColor = 'var(--border-accent)';
-      }}
-      onMouseLeave={(e) => {
-        (e.target as HTMLElement).style.borderColor = 'var(--border-subtle)';
+        backgroundColor: 'var(--bg-card)',
       }}
     >
       {/* Sun icon — shown in dark mode */}
       <svg
-        className="absolute w-5 h-5 transition-all duration-300"
+        className="theme-transition absolute h-5 w-5"
         style={{
           color: 'var(--text-secondary)',
           opacity: theme === 'dark' ? 1 : 0,
@@ -39,7 +34,7 @@ export default function ThemeToggle() {
 
       {/* Moon icon — shown in light mode */}
       <svg
-        className="absolute w-5 h-5 transition-all duration-300"
+        className="theme-transition absolute h-5 w-5"
         style={{
           color: 'var(--text-secondary)',
           opacity: theme === 'light' ? 1 : 0,

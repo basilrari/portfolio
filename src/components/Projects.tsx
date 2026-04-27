@@ -72,145 +72,78 @@ const moreProjects = [
   },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+const GITHUB_ICON = (
+  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.744.084-.729.084-.729 1.205.085 1.838 1.237 1.838 1.237 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.304-5.467-1.334-5.467-5.93 0-1.312.469-2.382 1.236-3.221-.123-.303-.535-1.524.117-3.176 0 0 1.008-.323 3.301 1.23A11.49 11.49 0 0112 6.844c1.02.005 2.047.138 3.006.404 2.292-1.553 3.3-1.23 3.3-1.23.653 1.652.241 2.873.118 3.176.77.839 1.235 1.909 1.235 3.22 0 4.609-2.805 5.627-5.478 5.922.43.371.823 1.102.823 2.222v3.293c0 .319.192.689.801.576C20.566 21.796 24 17.302 24 12c0-6.627-5.373-12-12-12z" />
+  </svg>
+);
+
+type Project = (typeof projects)[0];
+type CompactProject = Project | (typeof moreProjects)[0];
+
+const cardStyles = {
+  backgroundColor: 'var(--bg-card)',
+  borderColor: 'var(--border-subtle)',
+  boxShadow: 'var(--project-card-shadow, 0 0 0 rgba(0,0,0,0))',
+};
+
+const cardHoverStyles = {
+  scale: 1.02,
+  borderColor: 'var(--border-accent)',
+  boxShadow:
+    'var(--project-card-shadow-glow, 0 0 0 1px color-mix(in srgb, var(--border-accent) 45%, transparent), 0 10px 30px -18px color-mix(in srgb, var(--border-accent) 70%, transparent))',
+};
+
+function ProjectCard({ project }: { project: CompactProject }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08, duration: 0.4 }}
-      className="group rounded-xl border p-5 transition-all duration-300"
-      style={{
-        backgroundColor: 'var(--bg-card)',
-        borderColor: 'var(--border-subtle)',
+      variants={{
+        hidden: { opacity: 0, y: 18 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.34, ease: 'easeOut' as const },
+        },
       }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-accent)';
-        (e.currentTarget as HTMLElement).style.transform = 'scale(1.01)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-subtle)';
-        (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-      }}
+      whileHover={cardHoverStyles}
+      transition={{ duration: 0.28, ease: 'easeOut' as const }}
+      className="theme-transition micro-card group rounded-xl border p-4 md:p-5"
+      style={cardStyles}
     >
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="flex items-center gap-2.5">
-          <span style={{ color: 'var(--text-accent)', opacity: 0.7 }}>
-            {project.icon}
-          </span>
-          <h3
-            className="text-base font-semibold transition-colors duration-200"
-            style={{ color: 'var(--text-primary)' }}
-          >
-            {project.title}
-          </h3>
-        </div>
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View ${project.title} on GitHub`}
-          className="flex-shrink-0 transition-colors duration-200 p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-          style={{ color: 'var(--text-muted)' }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.color = 'var(--text-accent)';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)';
-          }}
-        >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg>
-        </a>
-      </div>
-
-      <p
-        className="text-sm leading-relaxed mb-4"
-        style={{ color: 'var(--text-secondary)' }}
-      >
-        {project.description}
-      </p>
-
-      <div className="flex flex-wrap gap-2">
-        {project.tech.map((tech) => (
-          <span
-            key={tech}
-            className="px-2 py-0.5 rounded font-mono text-[11px]"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              color: 'var(--text-muted)',
-            }}
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-function CompactProjectCard({ project, index }: { project: typeof moreProjects[0]; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08, duration: 0.4 }}
-      className="group rounded-xl border p-4 transition-all duration-300"
-      style={{
-        backgroundColor: 'var(--bg-card)',
-        borderColor: 'var(--border-subtle)',
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-accent)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-subtle)';
-      }}
-    >
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <h3
-          className="text-sm font-semibold transition-colors duration-200"
-          style={{ color: 'var(--text-primary)' }}
-        >
+      <div className="mb-3 flex items-start gap-2.5">
+        <h3 className="text-sm font-semibold leading-snug md:text-base" style={{ color: 'var(--text-primary)' }}>
           {project.title}
         </h3>
-        <a
+        <motion.a
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`View ${project.title} on GitHub`}
-          className="flex-shrink-0 transition-colors duration-200"
+          whileHover={{ scale: 1.08, color: 'var(--text-accent)' }}
+          transition={{ duration: 0.2, ease: 'easeOut' as const }}
+          className="theme-transition mt-0.5 inline-flex flex-shrink-0 items-center rounded p-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
           style={{ color: 'var(--text-muted)' }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.color = 'var(--text-accent)';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)';
-          }}
         >
-          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg>
-        </a>
+          {GITHUB_ICON}
+        </motion.a>
       </div>
 
       <p
-        className="text-xs leading-relaxed mb-3"
+        className="mb-4 text-sm leading-relaxed"
         style={{ color: 'var(--text-secondary)' }}
       >
         {project.description}
       </p>
 
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {project.tech.map((tech) => (
           <span
             key={tech}
-            className="px-1.5 py-0.5 rounded font-mono text-[10px]"
+            className="whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-medium"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               color: 'var(--text-muted)',
+              border: '1px solid var(--border-subtle)',
             }}
           >
             {tech}
@@ -222,16 +155,31 @@ function CompactProjectCard({ project, index }: { project: typeof moreProjects[0
 }
 
 export default function Projects() {
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.09,
+      },
+    },
+  };
+
   return (
     <section id="projects" className="py-12 md:py-16 lg:py-20">
       <AnimatedSection>
         <SectionHeader label="01 / Work" title="Featured Projects" />
 
-        <div className="grid gap-4 mb-10">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="mb-10 grid grid-cols-1 gap-4 lg:grid-cols-2"
+        >
+          {projects.map((project) => (
+            <ProjectCard key={project.title} project={project} />
           ))}
-        </div>
+        </motion.div>
 
         <AnimatedSection delay={0.3}>
           <h3
@@ -240,11 +188,17 @@ export default function Projects() {
           >
             More Projects
           </h3>
-          <div className="grid gap-4">
-            {moreProjects.map((project, index) => (
-              <CompactProjectCard key={project.title} project={project} index={index} />
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 gap-4 lg:grid-cols-2"
+          >
+            {moreProjects.map((project) => (
+              <ProjectCard key={project.title} project={project} />
             ))}
-          </div>
+          </motion.div>
         </AnimatedSection>
       </AnimatedSection>
     </section>
