@@ -65,12 +65,11 @@ export default function GuideAvatar() {
   return (
     <div className="relative flex-shrink-0">
       <motion.div
-        className="rounded-full overflow-hidden border-2 backdrop-blur-sm"
+        className="overflow-hidden backdrop-blur-sm"
         style={{
           width: 120,
           height: 120,
-          borderColor: 'var(--border-accent)',
-          backgroundColor: '#0f172a',
+          backgroundColor: 'transparent',
         }}
         animate={{
           rotateX: mousePos.y * -8,
