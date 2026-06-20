@@ -1,30 +1,30 @@
 import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from '@/contexts/ThemeContext';
-import ThemeToggle from '@/components/ThemeToggle';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Basil Rari — AI/ML Engineer',
-  description: 'AI/ML Engineer specializing in autonomous drones, computer vision, and Edge AI. Building intelligent systems that bridge software and hardware.',
+  title: 'Basil Rari — AI Engineer',
+  description:
+    'AI Engineer building intelligent systems across drones, LLMs, and world models. Autonomous systems, edge AI, and computer vision.',
   icons: {
     icon: '/avatar.jpg',
   },
   openGraph: {
-    title: 'Basil Rari — AI/ML Engineer',
-    description: 'Autonomous drones, computer vision, Edge AI. Building intelligent systems that bridge software and hardware.',
+    title: 'Basil Rari — AI Engineer',
+    description: 'Building intelligent systems that perceive, reason and act.',
     type: 'website',
   },
   twitter: {
-    card: 'summary',
-    title: 'Basil Rari — AI/ML Engineer',
-    description: 'Autonomous drones, computer vision, Edge AI.',
+    card: 'summary_large_image',
+    title: 'Basil Rari — AI Engineer',
+    description: 'Drones, LLMs, and world models for autonomous systems.',
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#0a0e17' },
-    { media: '(prefers-color-scheme: light)', color: '#fafaf9' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+    { media: '(prefers-color-scheme: light)', color: '#f9f9f9' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -36,14 +36,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen antialiased">
-        <ThemeProvider>
-          {children}
-          <div className="fixed top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
