@@ -84,13 +84,12 @@ export type NavItem = {
   id: string;
   label: string;
   href: string;
-  icon: 'home' | 'projects' | 'blog' | 'about' | 'resume';
+  icon: 'home' | 'projects' | 'about' | 'resume';
 };
 
 export const navItems: NavItem[] = [
   { id: 'home', label: 'Home', href: '#home', icon: 'home' },
   { id: 'projects', label: 'Projects', href: '#projects', icon: 'projects' },
-  { id: 'blog', label: 'Blog', href: '#blog', icon: 'blog' },
   { id: 'about', label: 'About', href: '#about', icon: 'about' },
   { id: 'resume', label: 'Resume', href: site.resumeUrl, icon: 'resume' },
 ];
