@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import AppLayout from '@/components/Layout/AppLayout';
 import HeroSection from '@/components/home/HeroSection';
 import ExpertiseCards from '@/components/home/ExpertiseCards';
@@ -10,7 +11,9 @@ export default function Home() {
     <AppLayout>
       <HeroSection />
       <ExpertiseCards />
-      <ProjectsSection />
+      <Suspense fallback={null}>
+        <ProjectsSection />
+      </Suspense>
       <AboutSection />
       <BottomSection />
     </AppLayout>

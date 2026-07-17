@@ -1,13 +1,35 @@
 'use client';
 
+import { useSyncExternalStore } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 interface ThemeToggleProps {
   compact?: boolean;
 }
 
+// Returns false on the server and during SSR, true once the client has mounted.
+// useSyncExternalStore is the React-recommended pattern for client-only rendering.
+function useIsClient(): boolean {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
+
 export default function ThemeToggle({ compact = false }: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme();
+  const isClient = useIsClient();
+
+  if (!isClient) {
+    return (
+      <div
+        className={`flex items-center justify-center rounded-lg border ${compact ? 'h-9 w-9' : 'h-10 w-10'}`}
+        style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--bg-secondary)' }}
+        aria-hidden="true"
+      />
+    );
+  }
 
   return (
     <button

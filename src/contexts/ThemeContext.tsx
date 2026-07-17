@@ -18,24 +18,23 @@ function getSystemTheme(): Theme {
   return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 }
 
+function readStoredTheme(): Theme {
+  if (typeof window === 'undefined') return 'dark';
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === 'light' || stored === 'dark') return stored;
+  return getSystemTheme();
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>(readStoredTheme);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    setTheme(stored ?? getSystemTheme());
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEY, theme);
-  }, [theme, mounted]);
+  }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   }, []);
 
   return (

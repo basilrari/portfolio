@@ -154,17 +154,22 @@ export default function Sidebar() {
           borderColor: 'var(--border-subtle)',
         }}
       >
-        {navItems.slice(0, 4).map((item) => (
-          <Link
-            key={item.id}
-            href={item.href}
-            className="flex flex-col items-center gap-0.5 p-2"
-            style={{ color: item.id === activeSection ? 'var(--text-primary)' : 'var(--text-muted)' }}
-          >
-            <NavIcon icon={item.icon} />
-            <span className="text-[9px]">{item.label}</span>
-          </Link>
-        ))}
+        {navItems.slice(0, 4).map((item) => {
+          const isExternal = item.href.startsWith('/') || item.href.startsWith('http');
+          return (
+            <Link
+              key={item.id}
+              href={item.href}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
+              className="flex flex-col items-center gap-0.5 p-2"
+              style={{ color: item.id === activeSection ? 'var(--text-primary)' : 'var(--text-muted)' }}
+            >
+              <NavIcon icon={item.icon} />
+              <span className="text-[9px]">{item.label}</span>
+            </Link>
+          );
+        })}
         <ThemeToggle compact />
       </nav>
     </>

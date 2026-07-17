@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { site } from '@/data/site';
+import ScrollReveal from '@/components/home/ScrollReveal';
 import {
   DroneWireframeVisual,
   LLMVisual,
@@ -32,52 +35,54 @@ const icons = {
 
 export default function ExpertiseCards() {
   return (
-    <section className="mb-12 md:mb-16">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
-        {site.expertise.map((area) => {
-          const Visual = visuals[area.id as keyof typeof visuals];
+    <ScrollReveal>
+      <section className="mb-12 md:mb-16">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+          {site.expertise.map((area) => {
+            const Visual = visuals[area.id as keyof typeof visuals];
 
-          return (
-            <article key={area.id} className="expertise-card flex flex-col p-5">
-              <div className="mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                {icons[area.id as keyof typeof icons]}
-                <h3 className="text-base font-semibold">{area.title}</h3>
-              </div>
+            return (
+              <article key={area.id} className="expertise-card expertise-card-animated flex flex-col p-5">
+                <div className="mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                  {icons[area.id as keyof typeof icons]}
+                  <h3 className="text-base font-semibold">{area.title}</h3>
+                </div>
 
-              <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                {area.description}
-              </p>
+                <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  {area.description}
+                </p>
 
-              <ul className="mb-5 space-y-1.5">
-                {area.skills.map((skill) => (
-                  <li key={skill} className="flex items-center gap-2 text-xs" style={{ color: 'var(--text-muted)' }}>
-                    <span className="h-1 w-1 rounded-full" style={{ backgroundColor: 'var(--text-muted)' }} />
-                    {skill}
-                  </li>
-                ))}
-              </ul>
+                <ul className="mb-5 space-y-1.5">
+                  {area.skills.map((skill) => (
+                    <li key={skill} className="flex items-center gap-2 text-xs" style={{ color: 'var(--text-muted)' }}>
+                      <span className="h-1 w-1 rounded-full" style={{ backgroundColor: 'var(--text-muted)' }} />
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
 
-              <div
-                className="mb-4 flex h-36 items-center overflow-hidden rounded-md"
-                style={{ backgroundColor: 'var(--visual-bg)' }}
-              >
-                <Visual />
-              </div>
+                <div
+                  className="mb-4 flex h-36 items-center overflow-hidden rounded-md"
+                  style={{ backgroundColor: 'var(--visual-bg)' }}
+                >
+                  <Visual />
+                </div>
 
-              <Link
-                href={area.linkHref}
-                className="mt-auto inline-flex items-center gap-1 text-sm font-medium theme-transition"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                {area.linkLabel}
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </Link>
-            </article>
-          );
-        })}
-      </div>
-    </section>
+                <Link
+                  href={area.linkHref}
+                  className="mt-auto inline-flex items-center gap-1 text-sm font-medium theme-transition micro-cta"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {area.linkLabel}
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </ScrollReveal>
   );
 }

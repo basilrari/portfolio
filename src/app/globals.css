@@ -157,6 +157,114 @@
     border-color: var(--text-muted);
     transform: translateY(-1px);
   }
+
+  .micro-cta {
+    transition: opacity 280ms ease-out, transform 280ms ease-out;
+  }
+
+  .micro-cta:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  /* Expertise / globe wireframe micro-animations */
+  @keyframes wf-rotor-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes wf-soft-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes wf-globe-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes wf-orbit-cue {
+    from {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: 48;
+    }
+  }
+
+  @keyframes wf-orbit-drone {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .wf-rotor-spin {
+    transform-box: fill-box;
+    animation: wf-rotor-spin 2.4s linear infinite;
+  }
+
+  .expertise-card-animated:hover .wf-rotor-spin,
+  .expertise-card-animated:focus-within .wf-rotor-spin {
+    animation-duration: 1.2s;
+  }
+
+  .wf-llm-pulse .wf-llm-token {
+    animation: wf-soft-pulse 3s ease-in-out infinite;
+  }
+
+  .wf-globe-stage .wf-globe-rotate {
+    transform-box: fill-box;
+    transform-origin: 100px 80px;
+    animation: wf-globe-spin 28s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .wf-globe-stage:hover .wf-globe-rotate,
+  .expertise-card-animated:hover .wf-globe-rotate {
+    animation-play-state: running;
+  }
+
+  /* Bottom globe: subtle continuous orbit cue */
+  .wf-orbit-path {
+    animation: wf-orbit-cue 8s linear infinite;
+  }
+
+  .wf-orbit-drone {
+    transform-origin: 100px 80px;
+    animation: wf-orbit-drone 14s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wf-rotor-spin,
+    .wf-llm-pulse .wf-llm-token,
+    .wf-globe-stage .wf-globe-rotate,
+    .wf-orbit-path,
+    .wf-orbit-drone,
+    .micro-cta {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    .micro-cta:hover {
+      transform: none;
+    }
+  }
 }
 
 ::-webkit-scrollbar {
